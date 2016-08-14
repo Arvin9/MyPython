@@ -40,7 +40,7 @@ def mysendmail(img_src,a_content):
     server.quit()
     
 
-
+'''
 #打开数据库连接
 conn = MySQLdb.Connect(
                         host = '115.29.52.104',
@@ -52,7 +52,7 @@ conn = MySQLdb.Connect(
                         )
 cursor = conn.cursor()
 conn.autocommit(False)
-
+'''
 #爬取内容
 response = requests.get('http://wufazhuce.com')
 soup = bs4.BeautifulSoup(response.text,"html.parser")
@@ -64,7 +64,7 @@ for i in soup.find_all("div",class_="item active"):
     img_src = i.find_all('img')[0]['src']
     print img_src
     #获取句子
-    a_content = i.find_all('a')[1].string
+    a_content = i.find_all('a')[1].get_text()
     print a_content
 
 #获取时间
@@ -72,31 +72,8 @@ now = datetime.datetime.now()
 now_strf = now.strftime("%Y-%m-%d %H:%M:%S")
 print now_strf
 
-mysendmail(img_src,a_content)
+#mysendmail(img_src,a_content)
 
-"""
-#写入数据库      
-sql_insert_img_src = "insert into image_links(link,add_time) values('" + img_src + "','" + now_strf + "')"
-sql_insert_a_content = "insert into quotations(content,add_time) values('" + a_content + "','" + now_strf + "')"
 
-print sql_insert_img_src
-print sql_insert_a_content
-
-try:
-    cursor.execute(sql_insert_img_src)
-    print cursor.rowcount
-
-    cursor.execute(sql_insert_a_content)
-    print cursor.rowcount
-
-    conn.commit()
-except Exception as e:
-    print e
-    conn.rollback()
-finally:
-    cursor.close()
-    conn.close()
-
-"""
 
 

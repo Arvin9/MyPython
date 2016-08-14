@@ -16,19 +16,19 @@ V = 1
 #速度方向
 Dx = 1
 Dy = 1
-Dz = 1
+Dz = 10
 
 #重力加速度
-G = -1
+G = -10
 
 dt = 0.1
 
 i = 1
-while i < 10:
+while i < 100:
 #速度分量
     Vx = (Dx*V)/math.sqrt(Dx*Dx + Dy*Dy + Dz*Dz)
-    Vy = (Dx*V)/math.sqrt(Dx*Dx + Dy*Dy + Dz*Dz)
-    Vz = (Dx*V)/math.sqrt(Dx*Dx + Dy*Dy + Dz*Dz) + G*dt
+    Vy = (Dy*V)/math.sqrt(Dx*Dx + Dy*Dy + Dz*Dz)
+    Vz = (Dz*V)/math.sqrt(Dx*Dx + Dy*Dy + Dz*Dz) + G*dt
 
     X.append(X[-1] + Vx*dt)
     Y.append(Y[-1] + Vy*dt)
